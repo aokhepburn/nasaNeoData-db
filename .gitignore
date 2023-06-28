@@ -1,0 +1,9 @@
+# API Key Storage
+keys.js
+
+# Garbage Files
+.DS_Store
+*/.DS_Store
+
+# Currently Unfinished Scripts
+not-in-use/
