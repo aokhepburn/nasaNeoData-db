@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>asteroids!</title>
+    <link rel="stylesheet" href="./asteroidIndex.css">
+</head>
+<header id="header-title">
+    <h1 id="page-title">ASTEROIDS!</h1>
+    <nav id="week-data-set-menu'">
+        <ul id="week-data-set-list">
+            <li id="week-1">January 1 - January 7, 2023</li>
+            <li id="week-2">January 8 - January 14, 2023</li>
+            <li id="week-3">January 15 - January 21, 2023</li>
+            <li id="week-4">January 22 - January 28, 2023</li>
+            <!-- each list element leads to separate drop downs for day by day break downs and weekly is it hazardous page
+                list appears horizontally and is a static element-->
+        </ul>
+
+        <div id='day-menu'>
+            <!--https://www.w3schools.com/howto/howto_css_dropdown.asp
+            -->
+            <select name="day-drop-down-menu" id="day-drop-down-menu">
+            <label for="day-drop-down-menu">Choose a day:</label>
+                <option value="[datekey]">Day 1</option>
+                <option value="[datekey]">Day 2</option>
+                <option value="[datekey]">Day 3</option>
+                <option value="[datekey]">Day 4</option>
+                <option value="[datekey]">Day 5</option>
+                <option value="[datekey]">Day 6</option>
+                <option value="[datekey]">Day 7</option>
+                <option value="[hazardfunction]">Hazardous Asteroids Of The Week!</option>
+            </select>
+        <br><br>
+            <input type="submit" value="Submit">
+    </div>
+        <!--
+            asteroid-list remains empty until one of those links (treat them as buttons or as individual id elements that
+            fetch db on click.event depending on what input value is) appears -->
+    </nav>
+</header>
+
+<body>
+    <div id="sorting-option-div">
+        <h1>SORT BY</h1>
+        <select name="sorting-drop-down-menu" id="sorting-drop-down-menu">
+            <label for="sorting-drop-down-menu">Choose a day:</label>
+                <option value="arrangeBySize" id="arrangeBySize">Size</option>
+                <option value="arrangeBySpeed" id="arrangeBySpeed">Speed</option>
+                <option value="arrangeByDistance" id="arrangeByDistance">Distance From Earth</option>
+        </select>            
+            <!-- <input type="submit" value="Submit"></select> -->
+        <!--
+                ***selected by arrangeByTime
+                option has an attribute of selected, meaning that instead of having JavaScript as the selected value by default, Java will be selected.
+                drop down menu for sorting options
+                input from this determines how below is sorted - default will be in place
+                display-value: hide until hover link in above nav (function called in fetch if fetch is done above?)
+                switches to visible when day is chosen and asteroid-list is populated - display line in default load
+            -->
+
+    </div>
+
+   <div id="asteroid-list" class="flex-container">
+        <!-- 
+            houses #asteroidFlexContainers div which holds details element
+            default load is a function that loads NAME DATE HAZARD LEVEL sorted by time
+                in that function is a hover event that will have a rollover function that loads THAT elements
+                full details, backgrdound asteroid lowers transperency and text changes from white to black
+                flex-scale css option for selected asteroid?
+            -->
+    </div>
+
+    <div><!--
+            form submit for naming an asteroid (possibly random)
+            patched to database
+        -->
+    </div>
+
+    <script defer src="./keys.js"></script>
+    <script defer src="./asteroidsLocalHost.js"></script>
+    <script defer src="./eventListeners.js"></script>
+
+</body>
+
+</html>

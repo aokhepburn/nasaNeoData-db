@@ -1,0 +1,78 @@
+body {
+    background-color: #14122f;
+}
+
+/* #header-title {
+    margin-top: 150 px;
+} */
+
+
+  #page-title {
+    color: #ffffff;
+    text-align: center;
+  }
+
+  #week-data-set-list{
+    color: #ffffff;
+    list-style-type: none;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+#week-data-set-list > li {
+    display: inline-block;
+    padding: 50px;
+}
+/* 
+#day-drop-down-menu{
+    display: none;
+
+    visibility:hidden; also hides an element.
+
+However, the element will still take up the same space as before. The element will be hidden, but still affect the layout:
+} */
+
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    justify-content: space-around;
+    background-color: transparent;
+    align-content: center;
+    padding: 50px;
+  }
+  
+  .flex-container > div {
+    overflow: auto;
+    background-color: #e2cbe2;
+    align-content: space-around;
+    padding: 50px;
+    width: 300px;
+    margin: 10px;
+    text-align: center;
+  }
+  
+  #hazard-returns-true {
+    color: red;
+    letter-spacing: 10px;
+    margin-top: -3px;
+  }
+
+  #name-field-tite {
+    margin-bottom: -5px;
+  }
+  #name-field {
+    margin-top: -10px;
+  }
+
+  #hazard-returns-false {
+    color: blue;
+    letter-spacing: 10px;
+    margin-top: -3px;
+  }
+
+  
