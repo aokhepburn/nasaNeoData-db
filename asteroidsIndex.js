@@ -2,7 +2,6 @@
 //PRINTSSORTEDLISTS WILL BE THE LESS DETAILED VERSION ROLLOVER CALLBACK WILL CALL DETAILS
 
 let dateKey = '2023-01-01';
-let data;
 let asteroidWeekData
 //fetch for January First - January Seventh
 fetch(
@@ -10,10 +9,8 @@ fetch(
 )
     .then((res) => res.json())
     .then((data) => {
-        //isPotentiallyHazardousWithDateAndSize(data.near_earth_objects)
-        enablesSortingDropDownMenu(data.near_earth_objects[`${dateKey}`])
+        enableDayDropDownMenu(data.near_earth_objects)
         asteroidWeekData = data.near_earth_objects
-        //buttonEventListeners(data.near_earth_objects)
 
         //event listner for form submits will lead to the fully populated body
     });
@@ -27,84 +24,31 @@ let currentAsteroid;
 //POPULATES BODY
 
 let hazardousAsteroids
-// function dayDropDownMenuFunction(dataForEachDayMenu) {
-//     document.querySelector('#day-drop-down-menu').addEventListener('submit', (e) => {
-//         e.preventDefault()
-//         console.log(e.target)
-//         if (e.target.input.value = 'hazardfunction') { console.log('hazardfunction result') }
-//         else {
-//             console.assert(false)
-//             document.querySelector("#asteroid-list").innerHTML = ""
-//             dateKey = e.target.input.value
-//             const initialLoad = dataForEachDayMenu[`${keyDate}`]
-//             initialLoad.forEach(printsDetailedLists)
-//         }
-//     e.target.reset()
-//     })
-// }
-function buttonEventListeners(dataForButtons) {
-    document.querySelector('#day1week1').addEventListener('click', (e) => {
-        document.querySelector("#asteroid-list").innerHTML = ""
-        console.assert(false)
-        dateKey = e.target.value
-        const sortedBySizes = sortsBySizes(dataForButtons[`${dateKey}`]);
-        sortedBySizes.forEach(printsDetailedLists)
-        enablesSortingDropDownMenu(dataForButtons[`${dateKey}`])
-    })
 
-    document.querySelector('#day2week1').addEventListener('click', (e) => {
-        document.querySelector("#asteroid-list").innerHTML = ""
-        console.log('Button 2')
-        dateKey = e.target.value
-        const sortedBySizes = sortsBySizes(dataForButtons[`${dateKey}`]);
-        sortedBySizes.forEach(printsDetailedLists)
-        enablesSortingDropDownMenu(dataForButtons[`${dateKey}`])
-        console.log(sortedBySizes)
-    })
+//working as of 0945
+function enableDayDropDownMenu(dataForDayDropDown) {
+    document.querySelector('#day-drop-down-menu').addEventListener('change', (e) => {
+        e.preventDefault()
+        if (e.target.value === 'hazardfunction') {
+            document.querySelector("#asteroid-list").innerHTML = ""
+            isPotentiallyHazardousWithDateAndSize(dataForDayDropDown)
+            console.log("hello from the event listener dayHazard")
+        }
+        else {
+            document.querySelector("#asteroid-list").innerHTML = ""
+            dateKey = e.target.value
+            const initialLoad = dataForDayDropDown[`${dateKey}`]
+                  initialLoad.forEach(printsDetailedLists)
+            console.log(dateKey)
 
-    document.querySelector('#day3week1').addEventListener('click', (e) => {
-        document.querySelector("#asteroid-list").innerHTML = ""
-        console.assert(false)
-        dateKey = e.target.value
-        const sortedBySizes = sortsBySizes(dataForButtons[`${dateKey}`]);
-        sortedBySizes.forEach(printsDetailedLists)
-        enablesSortingDropDownMenu(dataForButtons[`${dateKey}`])
-    })
-
-    document.querySelector('#day4week1').addEventListener('click', (e) => {
-        document.querySelector("#asteroid-list").innerHTML = ""
-        console.assert(false)
-        dateKey = e.target.value
-        const sortedBySizes = sortsBySizes(dataForButtons[`${dateKey}`]);
-        sortedBySizes.forEach(printsDetailedLists)
-        enablesSortingDropDownMenu(dataForButtons[`${dateKey}`])
-    })
-
-    document.querySelector('#day5week1').addEventListener('click', (e) => {
-        document.querySelector("#asteroid-list").innerHTML = ""
-        console.assert(false)
-        dateKey = e.target.value
-        const sortedBySizes = sortsBySizes(dataForButtons[`${dateKey}`]);
-        sortedBySizes.forEach(printsDetailedLists)
-        enablesSortingDropDownMenu(dataForButtons[`${dateKey}`])
-    })
-    document.querySelector('#day6week1').addEventListener('click', (e) => {
-        document.querySelector("#asteroid-list").innerHTML = ""
-        console.assert(false)
-        dateKey = e.target.value
-        const sortedBySizes = sortsBySizes(dataForButtons[`${dateKey}`]);
-        sortedBySizes.forEach(printsDetailedLists)
-        enablesSortingDropDownMenu(dataForButtons[`${dateKey}`])
-    })
-    document.querySelector('#day7week1').addEventListener('click', (e) => {
-        document.querySelector("#asteroid-list").innerHTML = ""
-        console.assert(false)
-        dateKey = e.target.value
-        const sortedBySizes = sortsBySizes(dataForButtons[`${dateKey}`]);
-        sortedBySizes.forEach(printsDetailedLists)
-        enablesSortingDropDownMenu(dataForButtons[`${dateKey}`])
+        }
+        enablesSortingDropDownMenu(dataForDayDropDown[`${dateKey}`])
+        //e.reset()
+        // FUNCTION THAT LOADS APPROPRIATE DATA (?STORES OPTION AS A VALUE TO BE USED BY FOLLOWING LISTENER?) datekey?
+        // (FETCH WITHIN IF OPTIONS? W APPROPRIATE FUNCTIONS ON SAME PAGE CAN JUST CALL THEM IN THERE? -FOLLOWING EVENT LISTENER CALLED BY FETCH?)
     })
 }
+
 
 
 
@@ -278,31 +222,3 @@ function enablesSortingDropDownMenu(dataForSortingDropDown) {
 when sorting based off what matches will I have to return a new object that then will have the sort function
 called on it? or can i just link the functions? 
 */
-function enablesSortingDropDownMenu(data) {
-    document
-       .querySelector("#sorting-drop-down-menu")
-       .addEventListener("change", (e) => {
-         e.preventDefault();
-         console.log("hello from the event listener");
- 
-         if (e.target.value === "arrangeBySize") {
-           document.querySelector("#asteroid-list").innerHTML = "";
-           const sortedBySizes = sortsBySizes(data);
-           //having two random asteroids  show up on console log - wait are they from my sorting?
-           sortedBySizes.map(printsDetailedLists);
-           console.log(sortedBySizes);
-         } else if (e.target.value === "arrangeBySpeed") {
-           document.querySelector("#asteroid-list").innerHTML = "";
-           const sortedByVelocity = sortsByVelocity(data);
-           sortedByVelocity.forEach(printsDetailedLists);
-           console.log(sortedByVelocity);
-         } else {
-           document.querySelector("#asteroid-list").innerHTML = "";
-           const sortedByDistance = sortsByDistance(data);
-           sortedByDistance.forEach(printsDetailedLists);
-           console.log(sortedByDistance);
-         }
- 
-         e.target.reset;
-       })
-     }
