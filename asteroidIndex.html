@@ -16,12 +16,14 @@
             <!-- each list element leads to separate drop downs for day by day break downs and weekly is it hazardous page
                 list appears horizontally and is a static element-->
         </ul>
+    </nav>
 
-            <!--https://www.w3schools.com/howto/howto_css_dropdown.asp-->
-
-           <div name="day-drop-down-div" id="day-drop-down-div">
-                <select id="day-drop-down-menu">
-            <label for="day-drop-down-menu">Choose a day:</label>
+    <!--https://www.w3schools.com/howto/howto_css_dropdown.asp-->
+    <span id="drop-downs">
+        <!--<div name="day-drop-down-div" id="day-drop-down-div">-->
+            <div id="each-day"><h1>CHOOSE A DAY</h1>
+            <select id="day-drop-down-menu">
+                <label for="day-drop-down-menu">Choose a day:</label>
                 <option value="2023-01-01" id="day1">Day 1</option>
                 <option value="2023-01-02" id="day2">Day 2</option>
                 <option value="2023-01-03" id="day3">Day 3</option>
@@ -30,16 +32,27 @@
                 <option value="2023-01-06" id="day6">Day 6</option>
                 <option value="2023-01-07" id="day7">Day 7</option>
                 <option value="hazardfunction" id='hazardfunction'>Hazardous Asteroids Of The Week!</option>
-            </select> </div>
-            <!--option has an attribute of selected, meaning that instead of having JavaScript as the selected value by default, Java will be selected.-->
-        <!--
+            </select></div>
+        <!--</div>-->
+        <!--<div id="sorting-option-div"></div>-->
+        <div id="sort-by"><h1>SORT BY</h1>
+        <select name="sorting-drop-down-menu" id="sorting-drop-down-menu">
+            <label for="sorting-drop-down-menu">Choose a day:</label>
+            <option value="arrangeBySize" id="arrangeBySize">Size</option>
+            <option value="arrangeBySpeed" id="arrangeBySpeed">Speed</option>
+            <option value="arrangeByDistance" id="arrangeByDistance">Distance From Earth</option>
+        </select></div>
+       <!--</div>-->
+    </span>
+    <!--option has an attribute of selected, meaning that instead of having JavaScript as the selected value by default, Java will be selected.-->
+    <!--
             asteroid-list remains empty until one of those links (treat them as buttons or as individual id elements that
             fetch db on click.event depending on what input value is) appears -->
     </nav>
 </header>
 
 <body>
-    <div id="sorting-option-div">
+    <!-- <div id="sorting-option-div">
         <h1>SORT BY</h1>
         <select name="sorting-drop-down-menu" id="sorting-drop-down-menu">
             <label for="sorting-drop-down-menu">Choose a day:</label>
@@ -54,9 +67,9 @@
                 switches to visible when day is chosen and asteroid-list is populated - display line in default load
             -->
 
-    </div>
+    </div> -->
 
-   <div id="asteroid-list" class="flex-container">
+    <div id="asteroid-list" class="flex-container">
         <!-- 
             houses #asteroidFlexContainers div which holds details element
             default load is a function that loads NAME DATE HAZARD LEVEL sorted by time

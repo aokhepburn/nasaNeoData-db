@@ -2,10 +2,19 @@ body {
     background-color: #14122f;
 }
 
-/* #header-title {
-    margin-top: 150 px;
-} */
+h1 {
+  color: #ffffff;
+}
 
+#drop-downs {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%
+}
+
+#drop-downs div {
+  width: 50%
+}
 
   #page-title {
     color: #ffffff;
@@ -19,8 +28,6 @@ body {
     margin: 0;
     padding: 0;
 }
-
-
 
 #week-data-set-list > li {
     display: inline-block;
