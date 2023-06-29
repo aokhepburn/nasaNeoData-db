@@ -26,6 +26,10 @@ body {
     display: inline-block;
     padding: 50px;
 }
+
+/* #sorting-option-div{
+  display: none;
+} */
 /* 
 #day-drop-down-menu{
     display: none;

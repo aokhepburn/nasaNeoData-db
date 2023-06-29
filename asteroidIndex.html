@@ -17,23 +17,21 @@
                 list appears horizontally and is a static element-->
         </ul>
 
-        <div id='day-menu'>
-            <!--https://www.w3schools.com/howto/howto_css_dropdown.asp
-            -->
-            <select name="day-drop-down-menu" id="day-drop-down-menu">
+            <!--https://www.w3schools.com/howto/howto_css_dropdown.asp-->
+
+           <div name="day-drop-down-menu" id="day-drop-down-menu">
+                <select>
             <label for="day-drop-down-menu">Choose a day:</label>
-                <option value="[datekey]">Day 1</option>
-                <option value="[datekey]">Day 2</option>
-                <option value="[datekey]">Day 3</option>
-                <option value="[datekey]">Day 4</option>
-                <option value="[datekey]">Day 5</option>
-                <option value="[datekey]">Day 6</option>
-                <option value="[datekey]">Day 7</option>
-                <option value="[hazardfunction]">Hazardous Asteroids Of The Week!</option>
-            </select>
-        <br><br>
-            <input type="submit" value="Submit">
-    </div>
+                <option value="2023-01-01" id="day1">Day 1</option>
+                <option value="2023-01-02" id="day2">Day 2</option>
+                <option value="2023-01-03" id="day3">Day 3</option>
+                <option value="2023-01-04" id="day4">Day 4</option>
+                <option value="2023-01-05" id="day5">Day 5</option>
+                <option value="2023-01-06" id="day6">Day 6</option>
+                <option value="2023-01-07" id="day7">Day 7</option>
+                <option value="hazardfunction" id='hazardfunction'>Hazardous Asteroids Of The Week!</option>
+            </select> </div>
+            <!--option has an attribute of selected, meaning that instead of having JavaScript as the selected value by default, Java will be selected.-->
         <!--
             asteroid-list remains empty until one of those links (treat them as buttons or as individual id elements that
             fetch db on click.event depending on what input value is) appears -->
@@ -49,10 +47,7 @@
                 <option value="arrangeBySpeed" id="arrangeBySpeed">Speed</option>
                 <option value="arrangeByDistance" id="arrangeByDistance">Distance From Earth</option>
         </select>            
-            <!-- <input type="submit" value="Submit"></select> -->
         <!--
-                ***selected by arrangeByTime
-                option has an attribute of selected, meaning that instead of having JavaScript as the selected value by default, Java will be selected.
                 drop down menu for sorting options
                 input from this determines how below is sorted - default will be in place
                 display-value: hide until hover link in above nav (function called in fetch if fetch is done above?)
@@ -79,7 +74,6 @@
 
     <script defer src="./keys.js"></script>
     <script defer src="./asteroidsIndex.js"></script>
-    <script defer src="./eventListeners.js"></script>
 
 </body>
 
