@@ -7,34 +7,54 @@
 </head>
 <header id="header-title">
     <h1 id="page-title">ASTEROIDS!</h1>
-    <nav id="week-data-set-menu'">
-        <ul id="week-data-set-list">
-            <li id="week-1">January 1 - January 7, 2023</li>
-            <li id="week-2">January 8 - January 14, 2023</li>
-            <li id="week-3">January 15 - January 21, 2023</li>
-            <li id="week-4">January 22 - January 28, 2023</li>
-            <!-- each list element leads to separate drop downs for day by day break downs and weekly is it hazardous page
-                list appears horizontally and is a static element-->
-        </ul>
+    <nav id="week-data-set-range">
+        <form name="set-db-range" id="set-db-range">
+            <p class="form-labels">set start date</p>
+            <select id="set-month-start">
+                <label for="set-month-start">Choose a day:</label>
+                </select>
+            <select id="set-day-start">
+            <label for="set-day-start">Choose a day:</label>
+            </select><br>
+            <p class="form-labels">set end date</p>
+            <select id="set-month-end">
+                <label for="set-month-end">Choose a day:</label>
+                </select>
+            <select id="set-day-end">
+            <label for="set-day-end">Choose a day:</label>
+            </select>
+        <input type="submit">
+    </form>
     </nav>
+    <!--
+        make independent value for Month&Day?
+        write event listener that:
+        -takes inputs and stores them in startDate and endDate values
+        -those values are then used in the fetch for the right range, those values are then pushed to drop
+        down menu
+        ?append new option values after isItHazardous
+
+
+    -->
 
     <!--https://www.w3schools.com/howto/howto_css_dropdown.asp-->
-    <span id="drop-downs">
-        <!--<div name="day-drop-down-div" id="day-drop-down-div">-->
-            <div id="each-day"><h1>CHOOSE A DAY</h1>
+    <span id='drop-downs'>
+        <div id="each-day">
+            <h1>CHOOSE A DAY</h1>
             <select id="day-drop-down-menu">
                 <label for="day-drop-down-menu">Choose a day:</label>
-                <option value="2023-01-01" id="day1">Day 1</option>
+                <!-- <option value="2023-01-01" id="day1">Day 1</option>
                 <option value="2023-01-02" id="day2">Day 2</option>
                 <option value="2023-01-03" id="day3">Day 3</option>
                 <option value="2023-01-04" id="day4">Day 4</option>
                 <option value="2023-01-05" id="day5">Day 5</option>
                 <option value="2023-01-06" id="day6">Day 6</option>
-                <option value="2023-01-07" id="day7">Day 7</option>
+                <option value="2023-01-07" id="day7">Day 7</option> -->
                 <option value="hazardfunction" id='hazardfunction'>Hazardous Asteroids Of The Week!</option>
             </select></div>
-        <!--</div>-->
-        <!--<div id="sorting-option-div"></div>-->
+
+
+
         <div id="sort-by"><h1>SORT BY</h1>
         <select name="sorting-drop-down-menu" id="sorting-drop-down-menu">
             <label for="sorting-drop-down-menu">Choose a day:</label>
@@ -52,22 +72,7 @@
 </header>
 
 <body>
-    <!-- <div id="sorting-option-div">
-        <h1>SORT BY</h1>
-        <select name="sorting-drop-down-menu" id="sorting-drop-down-menu">
-            <label for="sorting-drop-down-menu">Choose a day:</label>
-                <option value="arrangeBySize" id="arrangeBySize">Size</option>
-                <option value="arrangeBySpeed" id="arrangeBySpeed">Speed</option>
-                <option value="arrangeByDistance" id="arrangeByDistance">Distance From Earth</option>
-        </select>            
-        <!--
-                drop down menu for sorting options
-                input from this determines how below is sorted - default will be in place
-                display-value: hide until hover link in above nav (function called in fetch if fetch is done above?)
-                switches to visible when day is chosen and asteroid-list is populated - display line in default load
-            -->
-
-    </div> -->
+    </div>
 
     <div id="asteroid-list" class="flex-container">
         <!-- 
