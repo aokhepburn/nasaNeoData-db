@@ -5,44 +5,44 @@ body {
     font-family: 'Courier New', Helvetica, sans-serif;
 }
 
-#neo-description-div {
-  display: flex;
-  padding: 7px;
-  width: 100%;
-  align-content: center;
-  justify-content: center;
+#page-title{
+  margin-top: 20px;
   color: #ffffff;
-  background-color: #14122f;
-  opacity: 0.75;
+  text-align: center;
+  font-family: 'Courier New', Helvetica, sans-serif;
+  font-size: 50px;
 }
 
-#asteroid-cards-title-div {
-  display: flex;
-  padding: 7px;
+#date-range-and-doom-div {
+  display: inline-block;
   width: 100%;
-  align-content: center;
-  justify-content: center;
   color: #ffffff;
-  background-color: #14122f;
-  opacity: 0.75;
+  font-family: 'Courier New', Helvetica, sans-serif;
+
 }
-#near-earth-object-description {
-  width:25%;
-  padding: 4px;
+
+#week-data-set-range {
+  float: left;
+  margin-left: 30px;
 }
+
 #doom-mongering-quote {
-  display: block;
-  width: 70%;
-  background-color: #e2cbe2;
-  color: #14122f;
+  display: flex;
+  float: right;
+  width: 50%;
+  color: #ffffff;
+  margin-right: 8px;
+  text-align: right;
+  vertical-align:center;
+  font-size: 12px;
   opacity: 80%;
+
+  padding-top: 10px;
 }
 h1 {
   color: #ffffff;
   font-family: 'Courier New', Helvetica, sans-serif;
 }
-
-
 
 #drop-downs {
   display: flex;
@@ -55,44 +55,34 @@ h1 {
   width: 50%
 }
 
+#neo-description-div {
+  display: flex;
+  width: 100%;
+  align-content: center;
+  justify-content: center;
+  color: #ffffff;
+  background-color: #14122f;
+  opacity: 0.75;
+  float: left;
+  text-align: left;
+  width:100%;
+}
+
+#asteroid-cards-title-div {
+  display: flex-wrap;
+  float: center;
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+  color: #ffffff;
+  background-color: #14122f;
+  opacity: 0.75;
+}
+
 .form-labels {
   color: #ffffff;
   font-family: 'Courier New', Helvetica, sans-serif
 }
-
-  #page-title {
-    color: #ffffff;
-    text-align: center;
-    font-family: 'Courier New', Helvetica, sans-serif;
-  }
-
-  #week-data-set-list{
-    color: #ffffff;
-    list-style-type: none;
-    text-align: center;
-    margin: 0;
-    padding: 0;
-    font-family: 'Courier New', Helvetica, sans-serif;
-}
-
-#week-data-set-list > li {
-    display: inline-block;
-    padding: 50px;
-    font-family: 'Courier New', Helvetica, sans-serif;
-}
-
-/* #sorting-option-div{
-  display: none;
-} */
-/* 
-#day-drop-down-menu{
-    display: none;
-
-    visibility:hidden; also hides an element.
-
-However, the element will still take up the same space as before. The element will be hidden, but still affect the layout:
-} */
-
 
 .flex-container {
     display: flex;
@@ -109,7 +99,7 @@ However, the element will still take up the same space as before. The element wi
     background-color: #e2cbe2;
     align-content: space-around;
     padding: 50px;
-    width: 300px;
+    max-width: 300px;
     margin: 10px;
     text-align: center;
   }
@@ -118,13 +108,6 @@ However, the element will still take up the same space as before. The element wi
     color: red;
     letter-spacing: 10px;
     margin-top: -3px;
-  }
-
-  #name-field-tite {
-    margin-bottom: -5px;
-  }
-  #name-field {
-    margin-top: -10px;
   }
 
   #hazard-returns-false {

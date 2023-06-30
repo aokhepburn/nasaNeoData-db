@@ -5,6 +5,10 @@ dayRange array and integrate them so they can be sorted together
 To get bug back remove $document.querySelector('#asteroid-list').innerHTML=''
 */
 
+/*loading ca file
+https://cneos.jpl.nasa.gov/ca/ov/#load=&time=1688133581000&orientation=0,0,0,1&lookat=Earth&interval=2&eclipticgrid=false&eclipticaxis=false&distance=29919.57414&pitch=0&roll=0&yaw=0&scale=0.8923864590681115&rotateX=-16.318030827136496&rotateY=90.05714870511403&desig=${name}&cajd=2460125.916451321&
+*/
+
 let dateKey = '2023-01-01';
 let currentAsteroid
 let dayDateStart
@@ -16,16 +20,23 @@ let dateRange
 
 document.querySelector('#sort-by').style.display = "none"
 document.querySelector('#each-day').style.display = 'none'
+document.querySelector('#if-hazardous-explanation').style.display = "none"
+
+//let sortedDistance = `.close_approach_data["0"].miss_distance.astronomical`
 
 //fetch for populating range form
-fetch('http://localhost:3000/dates')
-    .then(res => res.json())
-    .then(data => {
-        data.dayValues.forEach(populatesDayDatesValues)
-        data.monthValues.forEach(populatesMonthDatesValues)
-        submitsDateEnablesMenu()
 
-    })
+const dayValues =  [
+      "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12",
+      "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24",
+      "25", "26", "27", "28", "29", "30", "31"
+    ]
+  
+const monthValues = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
+
+dayValues.forEach(populatesDayDatesValues)
+monthValues.forEach(populatesMonthDatesValues)
+submitsDateEnablesMenu()
 
 function fetchesAPIOffUserDates() {
     fetch(
@@ -45,30 +56,36 @@ function fetchesAPIOffUserDates() {
 //i mean could combine em as two different parameters. Nope! cause i'm calling a for each.
 function populatesDayDatesValues(data) {
     const dayStartInputValue = document.createElement('option')
-    dayStartInputValue.innerText = data
-    dayStartInputValue.value = data
+    optionElementPopulator(dayStartInputValue, data)
     document.querySelector('#set-day-start').append(dayStartInputValue)
 
     const dayEndInputValue = document.createElement('option')
-    dayEndInputValue.innerText = data
-    dayEndInputValue.value = data
+    optionElementPopulator(dayEndInputValue, data)
     document.querySelector('#set-day-end').append(dayEndInputValue)
+
 }
 
 function populatesMonthDatesValues(data) {
     const monthStartInputValue = document.createElement('option')
-    monthStartInputValue.innerText = data
-    monthStartInputValue.value = data
+    optionElementPopulator(monthStartInputValue, data)
     document.querySelector('#set-month-start').append(monthStartInputValue)
 
     const monthEndInputValue = document.createElement('option')
-    monthEndInputValue.innerText = data
-    monthEndInputValue.value = data
+    optionElementPopulator(monthEndInputValue, data)
     document.querySelector('#set-month-end').append(monthEndInputValue)
+}
+
+//so taking the first three and making the helper function
+function optionElementPopulator(inputValue, data){
+// const inputValue = document.createElement('option')
+    inputValue.innerText = data
+    inputValue.value = data
+    //return inputValue
 }
 
 //submit event - inputs dates from set-db-range form & uses them to fetch that set of data
 //returns those chosen dates which are used both in the fetch as part of the URL
+
 function submitsDateEnablesMenu() {
     document.querySelector('#set-db-range').addEventListener('submit', (e) => {
         e.preventDefault()
@@ -85,7 +102,7 @@ function submitsDateEnablesMenu() {
 
         monthDateEnd = e.target['set-month-end'].value
         yearDate = e.target['set-year'].value
-        console.log(yearDate)
+        //console.log(yearDate)
 
         //actually returns the data using the values set above as variables in the fetch URL
         fetchesAPIOffUserDates()
@@ -104,6 +121,7 @@ function populatesAsteroidArrayTitleDiv(){
     `Near Earth Objects From ${monthDateStart}/${dayDateStart}/${yearDate}
     to ${monthDateEnd}/${dayDateEnd}/${yearDate}`
 }
+
 
 //dateRange has to be used to populate specific day options dateRange.forEach
 //and input into the correct value
@@ -138,27 +156,6 @@ function enablesDayDropDown(dataForDayDropDown) {
 
 let hazardousAsteroids
 
-function enableDayDropDown(dataForDayDropDown) {
-    document.querySelector('#day-drop-down-menu-week-1').addEventListener('change', (e) => {
-        e.preventDefault()
-        if (e.target.value === 'hazardfunction') {
-            document.querySelector("#asteroid-list").innerHTML = ""
-            isPotentiallyHazardousPopulates(dataForDayDropDown)
-            document.querySelector('#sort-by').style.display = "none"
-        }
-        else {
-            document.querySelector("#asteroid-list").innerHTML = ""
-            dateKey = e.target.value
-            const initialLoad = dataForDayDropDown[`${dateKey}`]
-            initialLoad.forEach(printsDetailedLists)
-
-            document.querySelector('#sort-by').style.display = "block"
-
-            enablesSortingDropDownMenu(dataForDayDropDown[`${dateKey}`])
-        }
-    })
-}
-
 //returns only those data points that return as true to hazardous and are identified with their date & size
 //POPULATES BODY
 function isPotentiallyHazardousPopulates(dataForHazardous) {
@@ -179,6 +176,27 @@ function isPotentiallyHazardousPopulates(dataForHazardous) {
 //return new array for each search result and sort based off that?
 //have the date key be a second parameter so that each choice of date would vary
 //or have retrieve functions return new arrays that are than sorted through & printed
+// function sorting(data, sortChoice){
+//     console.log('sorting function')
+//     for (let i = 0; i < data.length; i++) {
+//         let sortedAsteroids = data.sort(
+//             (a, b) =>
+//                 parseFloat(a[sortChoice]) -
+//                 parseFloat(b[sortChoice])
+//         );
+//         return sortedAsteroids;
+   
+// }
+// }
+
+// function sortsWithForEach(data, sortChoice){
+//     let sortedAsteroids = data.sort(
+//         (a, b) =>
+//             parseFloat(a[sortChoice]) -
+//             parseFloat(b[sortChoice]))
+//             return sortedAsteroids
+// }
+
 function sortsByDistance(dataForDistance) {
     for (let i = 0; i < dataForDistance.length; i++) {
         let sortedByDistance = dataForDistance.sort(
@@ -262,6 +280,11 @@ function printsFirstCards(dataPoint){
 
 function printsDetailedLists(dataPoint) {
     currentAsteroid = dataPoint;
+    if (document.querySelector('#day-drop-down-menu').value === 'hazardfunction'){
+        document.querySelector('#if-hazardous-explanation').style.display = "block"
+    } else {
+        document.querySelector('#if-hazardous-explanation').style.display = "none"
+    }
 
     const asteroidFlexContainers = document.createElement("div");
     document.querySelector("#asteroid-list").append(asteroidFlexContainers);
@@ -357,6 +380,7 @@ function enablesSortingDropDownMenu(dataForSortingDropDown) {
                 document.querySelector("#asteroid-list").innerHTML = "";
                 const sortedByDistance = sortsByDistance(dataForSortingDropDown);
                 sortedByDistance.forEach(printsDetailedLists);
+                console.log(sortedByDistance)
                 //console.log(sortedByDistance);
             }
 
