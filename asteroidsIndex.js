@@ -1,10 +1,8 @@
 //PRINTS TITLES ONLY
 
 let dateKey = '2023-01-01';
-let asteroidWeekData
+let currentAsteroid
 
-// document.querySelector('#each-day-week-1').style.display = "none"
-// document.querySelector('#each-day-week-2').style.display = "none"
 document.querySelector('#sort-by').style.display = "none"
 document.querySelector('#each-day').style.display = 'none'
 
@@ -61,7 +59,13 @@ function submitsDateEnablesMenu(){document.querySelector('#set-db-range').addEve
     e.preventDefault()
     dayDateStart = e.target['set-day-start'].value
     monthDateStart = e.target['set-month-start'].value
-    dayDateEnd = e.target['set-day-end'].value
+    
+    if (e.target['set-day-end'].value > 7+parseInt(dayDateStart)) {
+        console.log(dayDateStart)
+        alert("DATABASE CAN ONLY ACCESS A WEEK'S WORTH OF DATA. PLEASE SHORTEN YOUR TIME SPAN.");
+        return false;
+      } else {dayDateEnd = e.target['set-day-end'].value}
+    
     monthDateEnd = e.target['set-month-end'].value
     fetch(
         `https://api.nasa.gov/neo/rest/v1/feed?start_date=2023-${monthDateStart}-${dayDateStart}&end_date=2023-${monthDateEnd}-${dayDateEnd}&api_key=${NASA_AUTH_KEY}`
@@ -73,6 +77,8 @@ function submitsDateEnablesMenu(){document.querySelector('#set-db-range').addEve
             isPotentiallyHazardousPopulates(data.near_earth_objects)
             enablesDayDropDown(data.near_earth_objects)
         })
+
+    validateForm()
     
     document.querySelector('#each-day').style.display = 'block'
     
@@ -80,7 +86,6 @@ function submitsDateEnablesMenu(){document.querySelector('#set-db-range').addEve
 
 //dateRange has to be used to populate specific day options dateRange.forEach
 //and input into the correct value
-
 function populatesDayOptions(userDateRange){
     const eachDayData = document.createElement('option')
     eachDayData.innerText = userDateRange
@@ -109,28 +114,6 @@ function enablesDayDropDown(dataForDayDropDown) {
     })
 }
 
-// //fetch for January First - January Seventh
-// document.querySelector('#week-1').addEventListener('click', (e) => {
-//     fetch(
-//         `https://api.nasa.gov/neo/rest/v1/feed?start_date=2023-01-01&end_date=2023-01-07&api_key=${NASA_AUTH_KEY}`
-//     )
-//         .then((res) => res.json())
-//         .then((data) => {
-//             enableDayDropDownMenuWeek1(data.near_earth_objects)
-//             asteroidWeekData = data.near_earth_objects
-    
-//             //event listner for form submits will lead to the fully populated body
-//         })
-    
-//         document.querySelector('#each-day-week-1').style.display = "block"
-
-
-// })
-
-let currentAsteroid;
-//document.querySelector('#day-drop-down-menu').addEventListener('mouseover', ()=> document.querySelector('#sorting-option-div').style.display = "block")
-
-
 let hazardousAsteroids
 
 function enableDayDropDown(dataForDayDropDown) {
@@ -154,28 +137,6 @@ function enableDayDropDown(dataForDayDropDown) {
     })
 }
 
-function enableDayDropDownMenuWeek2(dataForDayDropDown) {
-    document.querySelector('#day-drop-down-menu-week-2').addEventListener('change', (e) => {
-        e.preventDefault()
-        if (e.target.value === 'hazardfunction') {
-            document.querySelector("#asteroid-list").innerHTML = ""
-            isPotentiallyHazardousPopulates(dataForDayDropDown)
-            document.querySelector('#sort-by').style.display = "none"
-        }
-        else {
-            document.querySelector("#asteroid-list").innerHTML = ""
-            dateKey = e.target.value
-            const initialLoad = dataForDayDropDown[`${dateKey}`]
-                  initialLoad.forEach(printsDetailedLists)
-
-            document.querySelector('#sort-by').style.display = "block"
-
-            enablesSortingDropDownMenu(dataForDayDropDown[`${dateKey}`])
-        }
-    })
-}
-
-
 //returns only those data points that return as true to hazardous and are identified with their date & size
 //POPULATES BODY
 function isPotentiallyHazardousPopulates(dataForHazardous) {
@@ -196,7 +157,6 @@ function isPotentiallyHazardousPopulates(dataForHazardous) {
 //return new array for each search result and sort based off that?
 //have the date key be a second parameter so that each choice of date would vary
 //or have retrieve functions return new arrays that are than sorted through & printed
-
 function sortsByDistance(dataForDistance) {
     for (let i = 0; i < dataForDistance.length; i++) {
         let sortedByDistance = dataForDistance.sort(
@@ -243,6 +203,40 @@ function sortsBySizes(dataForSize) {
         return sortedBySize;
     }
 }
+
+/*
+function printsFirstCards(dataPoint){
+    currentAsteroid = dataPoint
+    const asteroidFlexTitleContainers = document.createElement("div");
+    document.querySelector("#asteroid-list").append(asteroidFlexTitleContainers);
+
+    const nameField = document.createElement("h3");
+    nameField.textContent = `${dataPoint.name}`;
+    nameField.id = "name-field";
+    asteroidFlexTitleContainers.append(nameField);
+
+    const dateAndTimeField = document.createElement("h2");
+    dateAndTimeField.textContent = `Date Passed By: ${dataPoint.close_approach_data[0].close_approach_date_full}`;
+    dateAndTimeField.id = "dateAndTimeField";
+    asteroidFlexTitleContainers.append(dateAndTimeField);
+
+    const speedField = document.createElement("h2");
+    speedField.textContent = `Velocity When Passing: ${dataPoint.close_approach_data[0].relative_velocity.kilometers_per_second} kilometres per second`;
+    speedField.id = "speed-field";
+    asteroidFlexTitleContainers.append(speedField);
+
+    const sizeField = document.createElement("h2");
+    sizeField.textContent = `Estimated Diameter In: ${dataPoint.estimated_diameter.kilometers.estimated_diameter_max} kilometres`;
+    sizeField.id = "size-field";
+    asteroidFlexTitleContainers.append(sizeField);
+
+    document.querySelector('asteroidFlexTitleContainers').addEventListener('mouseover',(e)=>{
+        asteroidFlexTitleContainers.innerHTML=''
+        printsDetailedLists(currentAsteroid)
+    })
+}
+*/
+
 
 function printsDetailedLists(dataPoint) {
     currentAsteroid = dataPoint;
@@ -299,6 +293,10 @@ function printsDetailedLists(dataPoint) {
     //assignAsteroidBackground(dataPoint)
 }
 
+/*show details:
+function printsAsteroidPreviews
+[NAME] passed by Earth at a speed of [VELOCITY] kilometres per second on [DATE]
+
 /*
 //function assigns scaled asteroid image as background to details div element
 function assignAsteroidBackground(dataPoint) {
@@ -343,7 +341,6 @@ function enablesSortingDropDownMenu(dataForSortingDropDown) {
             e.target.reset;
         })
 }
-
 /*
 when sorting based off what matches will I have to return a new object that then will have the sort function
 called on it? or can i just link the functions? 

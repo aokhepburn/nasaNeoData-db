@@ -1,5 +1,7 @@
 body {
     background-color: #14122f;
+    background-image: url(src-images/backgroundImage.jpg);
+    background-attachment: fixed;
 }
 
 h1 {
