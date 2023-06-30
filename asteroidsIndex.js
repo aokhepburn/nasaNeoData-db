@@ -1,74 +1,35 @@
-//PRINTS TITLES ONLY
+/*with the way the search data is currently loading you can add your search data together because 
+the submit event doesnt clear out the existing containers.
+It is currently a bug because I haven't set up a way to keep track of the seperate fetch's
+dayRange array and integrate them so they can be sorted together
+To get bug back remove $document.querySelector('#asteroid-list').innerHTML=''
+*/
 
 let dateKey = '2023-01-01';
 let currentAsteroid
-
-document.querySelector('#sort-by').style.display = "none"
-document.querySelector('#each-day').style.display = 'none'
-
-//working on range input form
-fetch('http://localhost:3000/dates')
-.then(res=>res.json())
-.then(data=>{ 
-    data.dayValues.forEach(addsStartDayOptions)
-    data.monthValues.forEach(addsStartMonthOptions)
-    data.dayValues.forEach(addsEndDayOptions)
-    data.monthValues.forEach(addsEndMonthOptions)
-    submitsDateEnablesMenu()
-
-    })
 let dayDateStart
 let monthDateStart
 let dayDateEnd
 let monthDateEnd
+let yearDate = 2023
 let dateRange
 
-//populate day input from json - validation function
-function addsStartDayOptions(data){
-    const dayStartInputValue = document.createElement('option')
-    dayStartInputValue.innerText = data
-    dayStartInputValue.value = data
-    document.querySelector('#set-day-start').append(dayStartInputValue)
-}
-function addsStartMonthOptions(data){
-    const monthStartInputValue = document.createElement('option')
-    monthStartInputValue.innerText = data
-    monthStartInputValue.value = data
-    document.querySelector('#set-month-start').append(monthStartInputValue)
-    //console.log(data)
-}
-function addsEndDayOptions(data){
-    const dayEndInputValue = document.createElement('option')
-    dayEndInputValue.innerText = data
-    dayEndInputValue.value = data
-    document.querySelector('#set-day-end').append(dayEndInputValue)
-}
-function addsEndMonthOptions(data){
-    const monthEndInputValue = document.createElement('option')
-    monthEndInputValue.innerText = data
-    monthEndInputValue.value = data
-    document.querySelector('#set-month-end').append(monthEndInputValue)
-    //console.log(data)
-}
+document.querySelector('#sort-by').style.display = "none"
+document.querySelector('#each-day').style.display = 'none'
 
-//submit event
-//inputs dates from set-db-range form
-//uses them to fetch that set of data
-//returns those dates as part of a new array - dateRange
-function submitsDateEnablesMenu(){document.querySelector('#set-db-range').addEventListener('submit', (e) => {
-    e.preventDefault()
-    dayDateStart = e.target['set-day-start'].value
-    monthDateStart = e.target['set-month-start'].value
-    
-    if (e.target['set-day-end'].value > 7+parseInt(dayDateStart)) {
-        console.log(dayDateStart)
-        alert("DATABASE CAN ONLY ACCESS A WEEK'S WORTH OF DATA. PLEASE SHORTEN YOUR TIME SPAN.");
-        return false;
-      } else {dayDateEnd = e.target['set-day-end'].value}
-    
-    monthDateEnd = e.target['set-month-end'].value
+//fetch for populating range form
+fetch('http://localhost:3000/dates')
+    .then(res => res.json())
+    .then(data => {
+        data.dayValues.forEach(populatesDayDatesValues)
+        data.monthValues.forEach(populatesMonthDatesValues)
+        submitsDateEnablesMenu()
+
+    })
+
+function fetchesAPIOffUserDates() {
     fetch(
-        `https://api.nasa.gov/neo/rest/v1/feed?start_date=2023-${monthDateStart}-${dayDateStart}&end_date=2023-${monthDateEnd}-${dayDateEnd}&api_key=${NASA_AUTH_KEY}`
+        `https://api.nasa.gov/neo/rest/v1/feed?start_date=${yearDate}-${monthDateStart}-${dayDateStart}&end_date=${yearDate}-${monthDateEnd}-${dayDateEnd}&api_key=${NASA_AUTH_KEY}`
     )
         .then((res) => res.json())
         .then((data) => {
@@ -77,16 +38,76 @@ function submitsDateEnablesMenu(){document.querySelector('#set-db-range').addEve
             isPotentiallyHazardousPopulates(data.near_earth_objects)
             enablesDayDropDown(data.near_earth_objects)
         })
+}
 
-    validateForm()
-    
-    document.querySelector('#each-day').style.display = 'block'
-    
-    e.target.reset()})}
+//populate day input from json - validation function
+//needs to be separate functions because they are being called on two different data sets,
+//i mean could combine em as two different parameters. Nope! cause i'm calling a for each.
+function populatesDayDatesValues(data) {
+    const dayStartInputValue = document.createElement('option')
+    dayStartInputValue.innerText = data
+    dayStartInputValue.value = data
+    document.querySelector('#set-day-start').append(dayStartInputValue)
+
+    const dayEndInputValue = document.createElement('option')
+    dayEndInputValue.innerText = data
+    dayEndInputValue.value = data
+    document.querySelector('#set-day-end').append(dayEndInputValue)
+}
+
+function populatesMonthDatesValues(data) {
+    const monthStartInputValue = document.createElement('option')
+    monthStartInputValue.innerText = data
+    monthStartInputValue.value = data
+    document.querySelector('#set-month-start').append(monthStartInputValue)
+
+    const monthEndInputValue = document.createElement('option')
+    monthEndInputValue.innerText = data
+    monthEndInputValue.value = data
+    document.querySelector('#set-month-end').append(monthEndInputValue)
+}
+
+//submit event - inputs dates from set-db-range form & uses them to fetch that set of data
+//returns those chosen dates which are used both in the fetch as part of the URL
+function submitsDateEnablesMenu() {
+    document.querySelector('#set-db-range').addEventListener('submit', (e) => {
+        e.preventDefault()
+        document.querySelector('#asteroid-list').innerHTML=''
+
+        dayDateStart = e.target['set-day-start'].value
+        monthDateStart = e.target['set-month-start'].value
+
+        if (e.target['set-day-end'].value > 7 + parseInt(dayDateStart)) {
+            console.log(dayDateStart)
+            alert("DATABASE CAN ONLY ACCESS A WEEK'S WORTH OF DATA. PLEASE SHORTEN YOUR TIME SPAN.");
+            return false;
+        } else { dayDateEnd = e.target['set-day-end'].value }
+
+        monthDateEnd = e.target['set-month-end'].value
+        yearDate = e.target['set-year'].value
+        console.log(yearDate)
+
+        //actually returns the data using the values set above as variables in the fetch URL
+        fetchesAPIOffUserDates()
+
+        //enables visibility of each day menu
+        document.querySelector('#each-day').style.display = 'block'
+        populatesAsteroidArrayTitleDiv()
+        
+
+        e.target.reset()
+    })
+}
+
+function populatesAsteroidArrayTitleDiv(){
+    document.querySelector('#asteroid-cards-title-h1').textContent =
+    `Near Earth Objects From ${monthDateStart}/${dayDateStart}/${yearDate}
+    to ${monthDateEnd}/${dayDateEnd}/${yearDate}`
+}
 
 //dateRange has to be used to populate specific day options dateRange.forEach
 //and input into the correct value
-function populatesDayOptions(userDateRange){
+function populatesDayOptions(userDateRange) {
     const eachDayData = document.createElement('option')
     eachDayData.innerText = userDateRange
     eachDayData.value = userDateRange
@@ -96,7 +117,8 @@ function populatesDayOptions(userDateRange){
 function enablesDayDropDown(dataForDayDropDown) {
     document.querySelector('#day-drop-down-menu').addEventListener('change', (e) => {
         e.preventDefault()
-        if (e.target.value === 'hazardfunction') {console.log(hazard)
+        if (e.target.value === 'hazardfunction') {
+            console.log(hazard)
             document.querySelector("#asteroid-list").innerHTML = ""
             isPotentiallyHazardousPopulates(dataForDayDropDown)
             document.querySelector('#sort-by').style.display = "none"
@@ -105,7 +127,7 @@ function enablesDayDropDown(dataForDayDropDown) {
             document.querySelector("#asteroid-list").innerHTML = ""
             dateKey = e.target.value
             const initialLoad = dataForDayDropDown[`${dateKey}`]
-                  initialLoad.forEach(printsDetailedLists)
+            initialLoad.forEach(printsDetailedLists)
 
             document.querySelector('#sort-by').style.display = "block"
 
@@ -128,7 +150,7 @@ function enableDayDropDown(dataForDayDropDown) {
             document.querySelector("#asteroid-list").innerHTML = ""
             dateKey = e.target.value
             const initialLoad = dataForDayDropDown[`${dateKey}`]
-                  initialLoad.forEach(printsDetailedLists)
+            initialLoad.forEach(printsDetailedLists)
 
             document.querySelector('#sort-by').style.display = "block"
 

@@ -15,7 +15,8 @@
                 </select>
             <select id="set-day-start">
             <label for="set-day-start">Choose a day:</label>
-            </select><br>
+            </select>
+            <br>
             <p class="form-labels">set end date</p>
             <select id="set-month-end">
                 <label for="set-month-end">Choose a day:</label>
@@ -23,7 +24,9 @@
             <select id="set-day-end">
             <label for="set-day-end">Choose a day:</label>
             </select>
-        <input type="submit">
+            <input type="text" id="set-end-year" name="set-year" required
+       minlength="4" maxlength="4" size="4" value="2023">
+        <input type="submit" value="Enter Your Date Range"></form>
     </form>
     </nav>
     <!--
@@ -38,6 +41,28 @@
     -->
 
     <!--https://www.w3schools.com/howto/howto_css_dropdown.asp-->
+    
+</header>
+
+<body><br><br>
+    <div id="neo-description-div">
+        <p id="near-earth-object-description">Near Earth Objects (NEOs) are asteroids or comets whose orbital paths come close with Earth's.
+            <br>
+            The following are all of the Near Earth Objects recorded by NASA during your selected date range. The date refers to an asteroid's closest passage to Earth.
+        </p>
+        <p id='doom-mongering-quote'>"Of the more than 700,000 known asteroids in our Solar System, about 17,000 are known to be NEOs. [...] On February 15, 2013, when an unknown object traveling at 66,000 km/h and thought to be 17–20 m in diameter exploded high above Chelyabinsk, Russia, with 20–30 times the energy of the Hiroshima atomic bomb. The resulting shock wave caused widespread damage and injuries, making it the largest known natural object to have entered Earth's atmosphere since the 1908 Tunguska event, which destroyed a remote forest area of Siberia. NEO collisions therefore represent a major threat both to humans and to planetary environments."<a href="https://www.sciencedirect.com/topics/earth-and-planetary-sciences/near-earth-objects#B978032390226700009X-s0130">(1)</a>.</p>
+            <!--ADD TO FUNCTION IN JSS SO IT DOESNT TAKE UP SPACE IN STYLING WHEN HIDDEN (display vs hidden?) <p id="potentially-hazardous-description">This collection of asteroids reflects NASA's judgement of asteroid's that were considered potentially hazardous to Earth in your selected time range. Try out your birthday!
+        </p>-->
+        </div>
+
+    <span id="asteroid-cards-title-div">
+        <h1 id="asteroid-cards-title-h1"><!--Near Earth Objects Date Range
+            eventually do a if else expression to make it
+            only show one day if it is a one day range
+            but quickly throw in the XXXX-XX-XX - XXXX-XX-XX
+            in anyway--></h1>
+    </span>
+
     <span id='drop-downs'>
         <div id="each-day">
             <h1>CHOOSE A DAY</h1>
@@ -61,11 +86,8 @@
     <!--
             asteroid-list remains empty until one of those links (treat them as buttons or as individual id elements that
             fetch db on click.event depending on what input value is) appears -->
-    </nav>
-</header>
+    
 
-<body>
-    </div>
 
     <div id="asteroid-list" class="flex-container">
         <!-- 

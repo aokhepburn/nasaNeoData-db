@@ -2,16 +2,53 @@ body {
     background-color: #14122f;
     background-image: url(src-images/backgroundImage.jpg);
     background-attachment: fixed;
+    font-family: 'Courier New', Helvetica, sans-serif;
 }
 
+#neo-description-div {
+  display: flex;
+  padding: 7px;
+  width: 100%;
+  align-content: center;
+  justify-content: center;
+  color: #ffffff;
+  background-color: #14122f;
+  opacity: 0.75;
+}
+
+#asteroid-cards-title-div {
+  display: flex;
+  padding: 7px;
+  width: 100%;
+  align-content: center;
+  justify-content: center;
+  color: #ffffff;
+  background-color: #14122f;
+  opacity: 0.75;
+}
+#near-earth-object-description {
+  width:25%;
+  padding: 4px;
+}
+#doom-mongering-quote {
+  display: block;
+  width: 70%;
+  background-color: #e2cbe2;
+  color: #14122f;
+  opacity: 80%;
+}
 h1 {
   color: #ffffff;
+  font-family: 'Courier New', Helvetica, sans-serif;
 }
+
+
 
 #drop-downs {
   display: flex;
   flex-wrap: wrap;
-  width: 100%
+  width: 100%;
+  font-family: 'Courier New', Helvetica, sans-serif;
 }
 
 #drop-downs div {
@@ -19,12 +56,14 @@ h1 {
 }
 
 .form-labels {
-  color: #ffffff
+  color: #ffffff;
+  font-family: 'Courier New', Helvetica, sans-serif
 }
 
   #page-title {
     color: #ffffff;
     text-align: center;
+    font-family: 'Courier New', Helvetica, sans-serif;
   }
 
   #week-data-set-list{
@@ -33,11 +72,13 @@ h1 {
     text-align: center;
     margin: 0;
     padding: 0;
+    font-family: 'Courier New', Helvetica, sans-serif;
 }
 
 #week-data-set-list > li {
     display: inline-block;
     padding: 50px;
+    font-family: 'Courier New', Helvetica, sans-serif;
 }
 
 /* #sorting-option-div{
