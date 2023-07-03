@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>asteroids!</title>
+    <link rel="stylesheet" href="./asteroidIndex.css">
+</head>
+<header id="header-title">
+    <div id="page-title">ASTEROIDS!</div>
+
+    <div id="date-range-and-doom-div">
+    <nav id="week-data-set-range">
+        <form name="set-db-range" id="set-db-range">
+            <p class="form-labels">set start date</p>
+            <select id="set-month-start">
+                <label for="set-month-start">Choose a day:</label>
+                </select>
+            <select id="set-day-start">
+            <label for="set-day-start">Choose a day:</label>
+            </select>
+            <br>
+            <p class="form-labels">set end date</p>
+            <select id="set-month-end">
+                <label for="set-month-end">Choose a day:</label>
+                </select>
+            <select id="set-day-end">
+            <label for="set-day-end">Choose a day:</label>
+            </select>
+            <input type="text" id="set-end-year" name="set-year" required
+       minlength="4" maxlength="4" size="4" value="2023">
+        <input type="submit" value="Enter Your Date Range"></form>
+    </form>
+    </nav>
+
+    <p id='doom-mongering-quote'>"Of the more than 700,000 known asteroids in our Solar System, about 17,000 are known to be NEOs. [...] On February 15, 2013, when an unknown object traveling at 66,000 km/h and thought to be 17–20 m in diameter exploded high above Chelyabinsk, Russia, with 20–30 times the energy of the Hiroshima atomic bomb. The resulting shock wave caused widespread damage and injuries, making it the largest known natural object to have entered Earth's atmosphere since the 1908 Tunguska event, which destroyed a remote forest area of Siberia. NEO collisions therefore represent a major threat both to humans and to planetary environments."<a href="https://www.sciencedirect.com/topics/earth-and-planetary-sciences/near-earth-objects#B978032390226700009X-s0130">(1)</a>.</p>
+    </div>
+    <!--
+        make independent value for Month&Day?
+        write event listener that:
+        -takes inputs and stores them in startDate and endDate values
+        -those values are then used in the fetch for the right range, those values are then pushed to drop
+        down menu
+        ?append new option values after isItHazardous
+
+
+    -->
+
+    <!--https://www.w3schools.com/howto/howto_css_dropdown.asp-->
+    
+</header>
+
+<body>
+    <br>
+    <div id="asteroid-cards-title-div">
+        <div id="neo-description-div">
+            <p id="near-earth-object-description">Near Earth Objects (NEOs) are asteroids or comets whose orbital paths come close with Earth's.
+                <br>
+                The following are all of the Near Earth Objects recorded by NASA during your selected date range. The date refers to an asteroid's closest passage to Earth.
+            </p>
+                <!--ADD TO FUNCTION IN JSS SO IT DOESNT TAKE UP SPACE IN STYLING WHEN HIDDEN (display vs hidden?) <p id="potentially-hazardous-description">This collection of asteroids reflects NASA's judgement of asteroid's that were considered potentially hazardous to Earth in your selected time range. Try out your birthday!
+            </p>-->
+        </div>
+        <h1 id="asteroid-cards-title-h1"><!--Near Earth Objects Date Range
+            eventually do a if else expression to make it
+            only show one day if it is a one day range
+            but quickly throw in the XXXX-XX-XX - XXXX-XX-XX
+            in anyway--></h1>
+        <p id="if-hazardous-explanation">Potentially Hazardous Asteroids are asteroids classified as
+            having an orbit that passes within less than half an astronomical unit (the distance of the Earth from the Sun)
+            from Earth and their magnitude rating. Most have passed close before and will pass closely again being perfectly harmless.
+            And we have already proved we can deflect them (the DART mission which deflected an asteroid in 2022<a href="https://dart.jhuapl.edu/">2</a>).
+        </p>
+    </div>
+
+    <span id='drop-downs'>
+        <div id="each-day">
+            <h1>CHOOSE A DAY</h1>
+            <select id="day-drop-down-menu">
+                <label for="day-drop-down-menu">Choose a day:</label>
+                <option value="hazardfunction" id='hazardfunction'>Hazardous Asteroids Of The Week!</option>
+            </select></div>
+
+
+
+        <div id="sort-by"><h1>SORT BY</h1>
+        <select name="sorting-drop-down-menu" id="sorting-drop-down-menu">
+            <label for="sorting-drop-down-menu">Choose a day:</label>
+            <option value="arrangeBySize" id="arrangeBySize">Size</option>
+            <option value="arrangeBySpeed" id="arrangeBySpeed">Speed</option>
+            <option value="arrangeByDistance" id="arrangeByDistance">Distance From Earth</option>
+        </select></div>
+       <!--</div>-->
+    </span>
+    <!--option has an attribute of selected, meaning that instead of having JavaScript as the selected value by default, Java will be selected.-->
+    <!--
+            asteroid-list remains empty until one of those links (treat them as buttons or as individual id elements that
+            fetch db on click.event depending on what input value is) appears -->
+    
+
+
+    <div id="asteroid-list" class="flex-container">
+        <!-- 
+            houses #asteroidFlexContainers div which holds details element
+            default load is a function that loads NAME DATE HAZARD LEVEL sorted by time
+                in that function is a hover event that will have a rollover function that loads THAT elements
+                full details, backgrdound asteroid lowers transperency and text changes from white to black
+                flex-scale css option for selected asteroid?
+            -->
+    </div>
+
+    <div><!--
+            form submit for naming an asteroid (possibly random)
+            patched to database
+        -->
+    </div>
+
+    <script defer src="./keys.js"></script>
+    <script defer src="./asteroidsIndex.js"></script>
+
+</body>
+
+</html>
